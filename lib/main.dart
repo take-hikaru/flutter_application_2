@@ -117,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 // 藤原
 
-
 // 有宗拓馬
 
 //Takahara
