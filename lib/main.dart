@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/map.dart';
 
 import 'chat.dart';
+import 'login.dart';
+import 'profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -104,13 +107,49 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            RaisedButton(
-              child: Text('次へ'),
+            ElevatedButton(
+              child: const Text('チャットページへ'),
               onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => NextPage(),
+                      builder: (context) => const ChatPage(),
+                    ));
+                // 押したら反応するコードを書く
+                // 画面遷移のコード
+              },
+            ),
+            ElevatedButton(
+              child: const Text('ログインページへ'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ));
+                // 押したら反応するコードを書く
+                // 画面遷移のコード
+              },
+            ),
+            ElevatedButton(
+              child: const Text('マップページへ'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MapPage(),
+                    ));
+                // 押したら反応するコードを書く
+                // 画面遷移のコード
+              },
+            ),
+            ElevatedButton(
+              child: const Text('プロフィールページへ'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfilePage(),
                     ));
                 // 押したら反応するコードを書く
                 // 画面遷移のコード
