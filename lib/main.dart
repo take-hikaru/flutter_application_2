@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'chat.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -101,6 +103,18 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            RaisedButton(
+              child: Text('次へ'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NextPage(),
+                    ));
+                // 押したら反応するコードを書く
+                // 画面遷移のコード
+              },
             ),
           ],
         ),
