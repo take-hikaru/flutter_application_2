@@ -4,6 +4,7 @@ import 'package:flutter_application_2/map.dart';
 import 'chat.dart';
 import 'login.dart';
 import 'profile.dart';
+import 'top.dart';
 
 void main() {
   runApp(const MyApp());
@@ -125,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
+                      builder: (context) => HomePageWidget(),
                     ));
                 // 押したら反応するコードを書く
                 // 画面遷移のコード
@@ -150,6 +151,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const ProfilePage(),
+                    ));
+                // 押したら反応するコードを書く
+                // 画面遷移のコード
+              },
+            ),
+            ElevatedButton(
+              child: const Text('チャットページへ'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TopWidget(),
                     ));
                 // 押したら反応するコードを書く
                 // 画面遷移のコード

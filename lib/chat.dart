@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -9,9 +10,17 @@ class ChatPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("チャットページ"),
       ),
-      body: Container(
-        height: double.infinity,
-        color: Colors.red,
+      body: Center(
+        // Container(
+        child: SizedBox(
+          width: 200.0,
+          height: 50.0,
+          child: SignInButton(
+            Buttons.Google,
+            text: 'Sign up with Google',
+            onPressed: () {},
+          ),
+        ),
       ),
     );
   }
