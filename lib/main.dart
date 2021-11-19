@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/map.dart';
 
 import 'chat.dart';
+import 'chatRoom.dart';
 import 'login.dart';
 import 'profile.dart';
 import 'top.dart';
@@ -166,6 +167,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => TopWidget(),
+                    ));
+                // 押したら反応するコードを書く
+                // 画面遷移のコード
+              },
+            ),
+            ElevatedButton(
+              child: const Text('チャットルームページへ'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ChatRoomPage(),
                     ));
                 // 押したら反応するコードを書く
                 // 画面遷移のコード
