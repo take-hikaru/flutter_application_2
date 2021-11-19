@@ -32,16 +32,16 @@ class LoginPage extends StatelessWidget {
             ButtonTheme(
               minWidth: 350.0,
               // height: 100.0,
-              child: RaisedButton(
+              child: ElevatedButton(
                   child: Text(
                     'Google認証',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  textColor: Colors.white,
-                  color: Colors.grey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  // textColor: Colors.white,
+                  // color: Colors.grey,
+                  // shape: RoundedRectangleBorder(
+                  //   borderRadius: BorderRadius.circular(10),
+                  // ),
                   onPressed: () async {
                     // Google認証の部分
                     googleUser = (await _google_signin.signIn())!;
@@ -70,16 +70,16 @@ class LoginPage extends StatelessWidget {
             ButtonTheme(
               minWidth: 350.0,
               // height: 100.0,
-              child: RaisedButton(
+              child: ElevatedButton(
                   child: Text(
                     'Google認証ログアウト',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  textColor: Colors.white,
-                  color: Colors.grey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  // textColor: Colors.white,
+                  // color: Colors.grey,
+                  // shape: RoundedRectangleBorder(
+                  //   borderRadius: BorderRadius.circular(10),
+                  // ),
                   onPressed: () {
                     _auth.signOut();
                     _google_signin.signOut();
