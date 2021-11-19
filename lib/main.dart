@@ -9,7 +9,7 @@ import 'top.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(); // ここ大事！
   runApp(const MyApp());
 }
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
