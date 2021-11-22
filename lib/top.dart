@@ -6,7 +6,9 @@ import 'package:flutter_application_2/main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'chat.dart';
+import 'chatroom.dart';
 import 'map.dart';
+import 'nursecall.dart';
 import 'profile.dart';
 
 class TopWidget extends StatefulWidget {
@@ -61,7 +63,7 @@ class _TopWidgetState extends State<TopWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ChatPage(),
+                      builder: (context) => ProfilePage(),
                     ));
               },
             ),
@@ -72,7 +74,7 @@ class _TopWidgetState extends State<TopWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ChatPage(),
+                      builder: (context) => Nursecall(),
                     ));
               },
             ),
@@ -127,7 +129,7 @@ class _TopWidgetState extends State<TopWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ChatPage(),
+                                builder: (context) => ChatRoomPage(),
                               ));
                         },
                         child: ClipOval(
