@@ -26,24 +26,28 @@ class _ProfeelWidgetState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       appBar: AppBar(
         title: const Text("プロフィールページ"),
         // backgroundColor: FlutterFlowTheme.primaryColor,
         automaticallyImplyLeading: true,
         actions: [],
-        centerTitle: true,
+        centerTitle: false,
         elevation: 4,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
-          children: [
+          children:[
+
+            //自己PR 
             Align(
-              alignment: AlignmentDirectional(-0.17, 0.42),
+              alignment: AlignmentDirectional(-0.17, 0.20),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 17),
                   // controller: textController1,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -78,10 +82,12 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                   //   fontSize: 18,
                   // ),
                   textAlign: TextAlign.start,
-                  maxLines: 8,
+                  maxLines: 6,
                 ),
               ),
             ),
+
+
             // Align(
             //   alignment: AlignmentDirectional(-0.02, 0.9),
             //   child: FFButtonWidget(
@@ -128,8 +134,11 @@ class _ProfeelWidgetState extends State<ProfilePage> {
             //     loading: _loadingButton1,
             //   ),
             // ),
+
+
+            //プロフィール写真
             Align(
-              alignment: AlignmentDirectional(-0.05, -0.89),
+              alignment: AlignmentDirectional(0.0, -0.89),
               child: Container(
                 width: 200,
                 height: 200,
@@ -142,6 +151,8 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                 ),
               ),
             ),
+
+
             // Align(
             //   alignment: AlignmentDirectional(0.65, -0.39),
             //   child: FFButtonWidget(
@@ -167,11 +178,15 @@ class _ProfeelWidgetState extends State<ProfilePage> {
             //     loading: _loadingButton2,
             //   ),
             // ),
+
+
+            //ユーザー名
             Align(
-              alignment: AlignmentDirectional(-0.08, -0.26),
+              alignment: AlignmentDirectional(0.0, -0.28),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 28),
                   // controller: textController2,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -205,7 +220,20 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                   maxLines: 1,
                 ),
               ),
+            ),
+
+
+            //保存ボタン
+            Align(
+              alignment: Alignment(0,0.80),
+              child: ElevatedButton(
+                child: Text('保存'),
+                onPressed: (){},
+                style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28),),
+              ),
             )
+
+
           ],
         ),
       ),
