@@ -11,47 +11,42 @@ class ProfilePage extends StatefulWidget {
 class _ProfeelWidgetState extends State<ProfilePage> {
   String uploadedFileUrl = '';
   bool _loadingButton2 = false;
-  // TextEditingController textController1;
   bool _loadingButton1 = false;
-  // TextEditingController textController2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    // textController1 = TextEditingController();
-    // textController2 = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       appBar: AppBar(
         title: const Text("プロフィールページ"),
-        // backgroundColor: FlutterFlowTheme.primaryColor,
         automaticallyImplyLeading: true,
         actions: [],
-        centerTitle: true,
+        centerTitle: false,
         elevation: 4,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
-          children: [
+          children:[
+
+            //自己PR 
             Align(
-              alignment: AlignmentDirectional(-0.17, 0.42),
+              alignment: AlignmentDirectional(-0.17, 0.20),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 17),
                   // controller: textController1,
                   obscureText: false,
                   decoration: InputDecoration(
                     hintText: '自己PR',
-                    // hintStyle: FlutterFlowTheme.bodyText1.override(
-                    //   fontFamily: 'Poppins',
-                    //   fontSize: 18,
-                    // ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
@@ -72,64 +67,17 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                         topRight: Radius.circular(4.0),
                       ),
                     ),
-                  ),
-                  // style: FlutterFlowTheme.bodyText1.override(
-                  //   fontFamily: 'Poppins',
-                  //   fontSize: 18,
-                  // ),
+                  ),                  
                   textAlign: TextAlign.start,
-                  maxLines: 8,
+                  maxLines: 6,
                 ),
               ),
             ),
-            // Align(
-            //   alignment: AlignmentDirectional(-0.02, 0.9),
-            //   child: FFButtonWidget(
-            //     onPressed: () async {
-            //       setState(() => _loadingButton1 = true);
-            //       try {
-            //         await showDialog(
-            //           context: context,
-            //           builder: (alertDialogContext) {
-            //             return AlertDialog(
-            //               title: Text('保存完了'),
-            //               content: Text('保存しました。'),
-            //               actions: [
-            //                 TextButton(
-            //                   onPressed: () =>
-            //                       Navigator.pop(alertDialogContext),
-            //                   child: Text('Ok'),
-            //                 ),
-            //               ],
-            //             );
-            //           },
-            //         );
-            //       } finally {
-            //         setState(() => _loadingButton1 = false);
-            //       }
-            //     },
-            //     text: '保存',
-            //     options: FFButtonOptions(
-            //       width: 270,
-            //       height: 80,
-            //       color: Color(0xFF0051FF),
-            //       textStyle: FlutterFlowTheme.title1.override(
-            //         fontFamily: 'Poppins',
-            //         color: Colors.white,
-            //         fontSize: 30,
-            //         fontWeight: FontWeight.normal,
-            //       ),
-            //       borderSide: BorderSide(
-            //         color: Colors.transparent,
-            //         width: 30,
-            //       ),
-            //       borderRadius: 20,
-            //     ),
-            //     loading: _loadingButton1,
-            //   ),
-            // ),
+
+            
+            //プロフィール写真
             Align(
-              alignment: AlignmentDirectional(-0.05, -0.89),
+              alignment: AlignmentDirectional(0.0, -0.89),
               child: Container(
                 width: 200,
                 height: 200,
@@ -142,45 +90,19 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                 ),
               ),
             ),
-            // Align(
-            //   alignment: AlignmentDirectional(0.65, -0.39),
-            //   child: FFButtonWidget(
-            //     onPressed: () {
-            //       print('Button pressed ...');
-            //     },
-            //     text: '+',
-            //     options: FFButtonOptions(
-            //       width: 40,
-            //       height: 40,
-            //       color: Color(0xFF28AAC2),
-            //       textStyle: FlutterFlowTheme.subtitle2.override(
-            //         fontFamily: 'Poppins',
-            //         color: Colors.white,
-            //         fontSize: 20,
-            //       ),
-            //       borderSide: BorderSide(
-            //         color: Colors.transparent,
-            //         width: 1,
-            //       ),
-            //       borderRadius: 30,
-            //     ),
-            //     loading: _loadingButton2,
-            //   ),
-            // ),
+
+            //ユーザー名
             Align(
-              alignment: AlignmentDirectional(-0.08, -0.26),
+              alignment: AlignmentDirectional(0.0, -0.28),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 28),
                   // controller: textController2,
                   obscureText: false,
                   decoration: InputDecoration(
                     hintText: 'ユーザー名',
-                    // hintStyle: FlutterFlowTheme.title1.override(
-                    //   fontFamily: 'Poppins',
-                    //   fontSize: 28,
-                    //   fontWeight: FontWeight.w500,
-                    // ),
+                   
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
@@ -196,14 +118,21 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                       borderRadius: BorderRadius.circular(0),
                     ),
                   ),
-                  // style: FlutterFlowTheme.title1.override(
-                  //   fontFamily: 'Poppins',
-                  //   fontSize: 28,
-                  //   fontWeight: FontWeight.w500,
-                  // ),
+
                   textAlign: TextAlign.center,
                   maxLines: 1,
                 ),
+              ),
+            ),
+
+
+            //保存ボタン
+            Align(
+              alignment: Alignment(0,0.80),
+              child: ElevatedButton(
+                child: Text('保存'),
+                onPressed: (){},
+                style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28),),
               ),
             )
           ],
