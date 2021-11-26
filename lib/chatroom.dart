@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'chat.dart';
+
 class ChatRoomPage extends StatelessWidget {
   const ChatRoomPage({Key? key}) : super(key: key);
 
@@ -27,7 +29,13 @@ class ChatRoomPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChatPage(),
+                              ));
+                        },
                       ),
                     ),
                     const SizedBox(height: 30),
