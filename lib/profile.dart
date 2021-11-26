@@ -38,7 +38,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             //自己PR 
             Align(
-              alignment: AlignmentDirectional(-0.17, 0.20),
+              alignment: AlignmentDirectional(-0.17, 0.29),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextFormField(
@@ -77,7 +77,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
             
             //プロフィール写真
             Align(
-              alignment: AlignmentDirectional(0.0, -0.89),
+              alignment: AlignmentDirectional(0.0, -0.90),
               child: Container(
                 width: 200,
                 height: 200,
@@ -93,7 +93,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             //ユーザー名
             Align(
-              alignment: AlignmentDirectional(0.0, -0.28),
+              alignment: AlignmentDirectional(0.0, -0.20),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
                 child: TextFormField(
@@ -128,11 +128,22 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             //保存ボタン
             Align(
-              alignment: Alignment(0,0.80),
+              alignment: Alignment(0,0.90),
               child: ElevatedButton(
                 child: Text('保存'),
-                onPressed: (){},
-                style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28),),
+                onPressed: () async{
+                  var result  = await showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context){
+                      return AlertDialog(
+                        title: Text('保存完了'),
+                        content: Text('保存しました。'),
+                      );
+                    },
+                  );
+                },
+                style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28)),
               ),
             )
           ],
