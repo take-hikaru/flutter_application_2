@@ -42,6 +42,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String uid = FirebaseAuth.instance.currentUser!.uid;
 
+  // 作成したドキュメント一覧
+  List<DocumentSnapshot> documentList = [];
+
+  // 指定したドキュメントの情報
+  String orderDocumentInfo = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,6 +110,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     color: Colors.blue,
                     onPressed: () async {
+                      final document = await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(uid)
+                          .collection('category1')
+                          .doc('35eiK6SQBcSg78kOkck3')
+                          .get();
+                      // 取得したドキュメントの情報をUIに反映
+                      setState(() {
+                        orderDocumentInfo = '${document['content']}';
+                        messages.add(orderDocumentInfo);
+                      });
                       DateFormat _formatter = DateFormat("yyyy:M:d:H:mm");
                       DateFormat _formatter2 = DateFormat("H:mm");
 
@@ -127,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           .set({
                         'content': msg,
                         'createdAt': dateadd,
-                        'userRef': '/users/user1'
+                        'userRef': '/users/' + uid
                       }); // データ
 
                       _textEditingController.clear();
@@ -135,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       setState(() {});
                     },
                   ),
+                  ListTile(title: Text(orderDocumentInfo)),
                 ],
               ),
             ),
