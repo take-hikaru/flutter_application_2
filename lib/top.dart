@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'chat.dart';
+import 'chatroom.dart';
 import 'map.dart';
 import 'nursecall.dart';
 import 'profile.dart';
@@ -75,7 +76,7 @@ class _TopWidgetState extends State<TopWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ChatPage(),
+                      builder: (context) => ProfilePage(),
                     ));
               },
             ),
@@ -141,7 +142,7 @@ class _TopWidgetState extends State<TopWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ChatPage(),
+                                builder: (context) => ChatRoomPage(),
                               ));
                         },
                         child: ClipOval(

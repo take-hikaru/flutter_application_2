@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:intl/intl.dart';
@@ -38,6 +40,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<String> dates = []; //送信した時間を保存するリスト
 
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  // 作成したドキュメント一覧
+  List<DocumentSnapshot> documentList = [];
+
+  // 指定したドキュメントの情報
+  String orderDocumentInfo = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,20 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView.builder(
               itemCount: messages.length,
               itemBuilder: (context, index) {
-                if ((index % 2) == 0) {
-                  //相手か自分を区別
-                  return _ReceivedMessageWidget(
-                    //_ReceivedMessageWidgetに返す
-                    message: messages[index], //messageにmessagesを代入
-                    date: dates[index], //dateにdatesを代入
-                  );
-                } else {
-                  return _SentMessageWidget(
-                    //_SentMessageWidgetに返す
-                    message: messages[index], //dateにdatesを代入
-                    date: dates[index],
-                  );
-                }
+                return _SentMessageWidget(
+                  //_SentMessageWidgetに返す
+                  message: messages[index], //dateにdatesを代入
+                  date: dates[index],
+                );
               },
             ),
           ),
@@ -108,19 +109,46 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 20,
                     ),
                     color: Colors.blue,
-                    onPressed: () {
-                      DateFormat _formatter = DateFormat("HH:mm");
+                    onPressed: () async {
+                      var document = null;
+                      document = await FirebaseFirestore.instance
+                          .collectionGroup('category1')
+                          .get();
+
+                      var test = document.docs;
+
+                      for (var snapshot in test) {
+                        debugPrint(snapshot.data()['content']);
+                        debugPrint(snapshot.data()['createdAt'].toString());
+                      }
+
+                      //.debugPrint("あああああああああ" + document.toString());
+
+                      DateFormat _formatter = DateFormat("yyyy:M:d:H:mm");
+                      DateFormat _formatter2 = DateFormat("H:mm");
 
                       var msg = _textEditingController.text.trim();
 
                       var dateadd = _formatter.format(DateTime.now());
+                      var dateadd2 = _formatter2.format(DateTime.now());
 
                       if (msg.isEmpty) {
                         return;
                       }
                       messages.add(msg);
 
-                      dates.add(dateadd);
+                      dates.add(dateadd2);
+
+                      await FirebaseFirestore.instance
+                          .collection('users') // コレクションID
+                          .doc(uid) // ドキュメントID << usersコレクション内のドキュメント
+                          .collection('category1') // サブコレクションID
+                          .doc() // ドキュメントID << サブコレクション内のドキュメント
+                          .set({
+                        'content': msg,
+                        'createdAt': FieldValue.serverTimestamp(), //サーバーサイドの時間
+                        'userRef': '/users/' + uid
+                      }); // データ
 
                       _textEditingController.clear();
 
@@ -137,60 +165,60 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class _ReceivedMessageWidget extends StatelessWidget {
-  final String message;
+// class _ReceivedMessageWidget extends StatelessWidget {
+//   final String message;
 
-  final String date;
-  _ReceivedMessageWidget({required this.message, required this.date});
+//   final String date;
+//   _ReceivedMessageWidget({required this.message, required this.date});
 
-  DateFormat formatter = DateFormat("HH:mm");
+//   DateFormat formatter = DateFormat("HH:mm");
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(),
-          const SizedBox(width: 5),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Column(
-                children: [
-                  const SizedBox(height: 5),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 10,
-                    ),
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.6,
-                    ),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Text(
-                      message,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 5),
-              Text(
-                date,
-                style: const TextStyle(fontSize: 10),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.start,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           CircleAvatar(),
+//           const SizedBox(width: 5),
+//           Row(
+//             crossAxisAlignment: CrossAxisAlignment.end,
+//             children: [
+//               Column(
+//                 children: [
+//                   const SizedBox(height: 5),
+//                   Container(
+//                     padding: const EdgeInsets.symmetric(
+//                       vertical: 5,
+//                       horizontal: 10,
+//                     ),
+//                     constraints: BoxConstraints(
+//                       maxWidth: MediaQuery.of(context).size.width * 0.6,
+//                     ),
+//                     decoration: const BoxDecoration(
+//                       color: Colors.white,
+//                       borderRadius: BorderRadius.all(Radius.circular(10)),
+//                     ),
+//                     child: Text(
+//                       message,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               const SizedBox(width: 5),
+//               Text(
+//                 date,
+//                 style: const TextStyle(fontSize: 10),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class _SentMessageWidget extends StatelessWidget {
   final String message;
