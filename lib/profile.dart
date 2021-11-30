@@ -1,6 +1,8 @@
 // import 'dart:io';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
+// import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_application_2/main.dart';
@@ -21,6 +23,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
   // String image = '';
   String name = '';
   String selfPr = '';
+  
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -65,8 +68,8 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                   onChanged: (value){
                     name = value;
                   },
-                  style: TextStyle(fontSize: 28),
-                  textInputAction: TextInputAction.next,
+                  style: TextStyle(fontSize: 31),
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     hintText: 'ユーザー名',
                   ),
@@ -99,7 +102,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             //保存ボタン
             Align(
-              alignment: Alignment(0,0.94),
+              alignment: Alignment(0,0.91),
               child: ElevatedButton(
                 child: Text('保存'),
                   onPressed: () async{
@@ -117,7 +120,6 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                         );
                       },
                     );
-
                   },
                   style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28)),
                 ),
