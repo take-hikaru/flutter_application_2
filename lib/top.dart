@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -159,8 +158,7 @@ class _TopWidgetState extends State<TopWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const MapPage(),
-                              ));
+                                  builder: (context) => MapApp()));
                         },
                         child: ClipOval(
                             child: Image(
