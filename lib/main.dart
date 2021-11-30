@@ -93,10 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('マップページへ'),
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MapPage(),
-                    ));
+                    context, MaterialPageRoute(builder: (context) => MapApp()));
                 // 押したら反応するコードを書く
                 // 画面遷移のコード
               },
