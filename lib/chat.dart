@@ -34,6 +34,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  _aaa() async {
+    var document = null;
+    document =
+        await FirebaseFirestore.instance.collectionGroup('category1').get();
+
+    var test = document.docs;
+
+    for (var snapshot in test) {
+      debugPrint(snapshot.data()['content']);
+      debugPrint(snapshot.data()['createdAt'].toString());
+    }
+  }
+
   final _textEditingController = TextEditingController();
 
   List<String> messages = []; //入力されたメッセージを保存するリスト
@@ -110,17 +123,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     color: Colors.blue,
                     onPressed: () async {
-                      var document = null;
-                      document = await FirebaseFirestore.instance
-                          .collectionGroup('category1')
-                          .get();
+                      // var document = null;
+                      // document = await FirebaseFirestore.instance
+                      //     .collectionGroup('category1')
+                      //     .get();
 
-                      var test = document.docs;
+                      // var test = document.docs;
 
-                      for (var snapshot in test) {
-                        debugPrint(snapshot.data()['content']);
-                        debugPrint(snapshot.data()['createdAt'].toString());
-                      }
+                      // for (var snapshot in test) {
+                      //   debugPrint(snapshot.data()['content']);
+                      //   debugPrint(snapshot.data()['createdAt'].toString());
+                      // }
 
                       //.debugPrint("あああああああああ" + document.toString());
 
