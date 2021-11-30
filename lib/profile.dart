@@ -115,7 +115,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                       builder: (BuildContext context){
                         return AlertDialog(
                           title: Text('保存完了'),
-                          content: Text('内容を変更しました。'),
+                          content: Text('変更しました。'),
                         );
                       },
                     );
