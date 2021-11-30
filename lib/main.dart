@@ -1,16 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/map.dart';
+import 'package:intl/intl.dart';
 
 import 'chat.dart';
 import 'chatRoom.dart';
 import 'login.dart';
 import 'profile.dart';
 import 'top.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 void main() async {
+  Intl.defaultLocale = 'ja_JP';
+  initializeDateFormatting('ja_JP');
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); // ここ大事！
+
   runApp(const MyApp());
 }
 

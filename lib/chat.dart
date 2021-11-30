@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(ChatPage());
@@ -110,6 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     color: Colors.blue,
                     onPressed: () async {
+                      Intl.defaultLocale = 'ja_JP';
+                      initializeDateFormatting('ja_JP');
+
                       var document = null;
                       document = await FirebaseFirestore.instance
                           .collectionGroup('category1')
@@ -117,9 +122,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       var test = document.docs;
 
+                      DateTime createdAt;
                       for (var snapshot in test) {
-                        debugPrint(snapshot.data()['content']);
-                        debugPrint(snapshot.data()['createdAt'].toString());
+                        debugPrint(snapshot.data()['content']); //メッセージ内容
+                        var timeStamp =
+                            snapshot.data()['createdAt']; //送信時間をタイムスタンプ型で
+                        createdAt = timeStamp
+                            .toDate()
+                            .toLocal(); //タイムスタンプ型の時間をDateTime型に
+                        DateFormat outputFormat =
+                            DateFormat('H:mm'); //フォーマットを指定
+                        createdAt.timeZoneOffset;
+                        String date = outputFormat.format(createdAt); //
+
+                        debugPrint(date);
+
+                        // debugPrint()
                       }
 
                       //.debugPrint("あああああああああ" + document.toString());
