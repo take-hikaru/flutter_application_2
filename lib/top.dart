@@ -6,6 +6,7 @@ import 'package:flutter_application_2/main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'chat.dart';
 import 'map.dart';
@@ -20,8 +21,18 @@ class TopWidget extends StatefulWidget {
 }
 
 class _TopWidgetState extends State<TopWidget> {
+  String _counter = "";
   bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // Shared Preferenceに値を保存されているデータを読み込んで_counterにセットする。
+  _getPrefItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // 以下の「counter」がキー名。見つからなければ０を返す
+    setState(() {
+      _counter = prefs.getString('counter') ?? "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +203,7 @@ class _TopWidgetState extends State<TopWidget> {
   }
 
   void _openPhoneApp() {
-    const tel = '117';
+    var tel = '117';
     _launchURL(
       'tel:' + tel,
     );
