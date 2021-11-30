@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'chat.dart';
 import 'chatroom.dart';
@@ -18,8 +21,18 @@ class TopWidget extends StatefulWidget {
 }
 
 class _TopWidgetState extends State<TopWidget> {
+  String _counter = "";
   bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // Shared Preferenceに値を保存されているデータを読み込んで_counterにセットする。
+  _getPrefItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // 以下の「counter」がキー名。見つからなければ０を返す
+    setState(() {
+      _counter = prefs.getString('counter') ?? "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +125,7 @@ class _TopWidgetState extends State<TopWidget> {
                           width: 200.0,
                           height: 120.0,
                           child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: _openPhoneApp,
                               backgroundColor: Colors.orange,
                               child: Icon(
                                 Icons.local_phone_sharp,
@@ -186,5 +199,21 @@ class _TopWidgetState extends State<TopWidget> {
         ),
       ),
     );
+  }
+
+  void _openPhoneApp() {
+    var tel = '117';
+    _launchURL(
+      'tel:' + tel,
+    );
+  }
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      final Error error = ArgumentError('Could not launch $url');
+      throw error;
+    }
   }
 }

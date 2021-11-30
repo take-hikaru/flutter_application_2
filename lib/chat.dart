@@ -110,17 +110,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     color: Colors.blue,
                     onPressed: () async {
-                      final document = await FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(uid)
-                          .collection('category1')
-                          .doc('35eiK6SQBcSg78kOkck3')
+                      var document = null;
+                      document = await FirebaseFirestore.instance
+                          .collectionGroup('category1')
                           .get();
-                      // 取得したドキュメントの情報をUIに反映
-                      setState(() {
-                        orderDocumentInfo = '${document['content']}';
-                        messages.add(orderDocumentInfo);
-                      });
+
+                      var test = document.docs;
+
+                      for (var snapshot in test) {
+                        debugPrint(snapshot.data()['content']);
+                        debugPrint(snapshot.data()['createdAt'].toString());
+                      }
+
+                      //.debugPrint("あああああああああ" + document.toString());
+
                       DateFormat _formatter = DateFormat("yyyy:M:d:H:mm");
                       DateFormat _formatter2 = DateFormat("H:mm");
 
@@ -143,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           .doc() // ドキュメントID << サブコレクション内のドキュメント
                           .set({
                         'content': msg,
-                        'createdAt': dateadd,
+                        'createdAt': FieldValue.serverTimestamp(), //サーバーサイドの時間
                         'userRef': '/users/' + uid
                       }); // データ
 
@@ -152,7 +155,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       setState(() {});
                     },
                   ),
-                  ListTile(title: Text(orderDocumentInfo)),
                 ],
               ),
             ),

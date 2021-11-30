@@ -1,23 +1,30 @@
+import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+// import 'dart:html';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class ProfilePage extends StatefulWidget {
+
   ProfilePage({Key? key}) : super(key: key);
 
   @override
   _ProfeelWidgetState createState() => _ProfeelWidgetState();
+
 }
 
 class _ProfeelWidgetState extends State<ProfilePage> {
-  String uploadedFileUrl = '';
-  bool _loadingButton2 = false;
-  bool _loadingButton1 = false;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // String image = '';
+  String name = '';
+  String selfPr = '';
+  
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       appBar: AppBar(
-        title: const Text("プロフィールページ"),
+        title: const Text("プロフィール編集"),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: false,
@@ -35,49 +42,9 @@ class _ProfeelWidgetState extends State<ProfilePage> {
       body: SafeArea(
         child: Stack(
           children:[
-
-            //自己PR 
-            Align(
-              alignment: AlignmentDirectional(-0.17, 0.20),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                child: TextFormField(
-                  style: TextStyle(fontSize: 17),
-                  // controller: textController1,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: '自己PR',
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                  ),                  
-                  textAlign: TextAlign.start,
-                  maxLines: 6,
-                ),
-              ),
-            ),
-
-            
             //プロフィール写真
             Align(
-              alignment: AlignmentDirectional(0.0, -0.89),
+              alignment: AlignmentDirectional(0.0, -0.90),
               child: Container(
                 width: 200,
                 height: 200,
@@ -93,51 +60,72 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             //ユーザー名
             Align(
-              alignment: AlignmentDirectional(0.0, -0.28),
+              alignment: AlignmentDirectional(0.0, -0.20),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
-                child: TextFormField(
-                  style: TextStyle(fontSize: 28),
-                  // controller: textController2,
-                  obscureText: false,
+                child: TextField(
+                  onChanged: (value){
+                    name = value;
+                  },
+                  style: TextStyle(fontSize: 31),
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     hintText: 'ユーザー名',
-                   
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(0),
-                    ),
                   ),
-
                   textAlign: TextAlign.center,
                   maxLines: 1,
+                  maxLength: 10,
                 ),
               ),
             ),
 
+            //自己PR
+            Align(
+              alignment: AlignmentDirectional(-0.17, 0.44),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                child: TextField( 
+                  onChanged: (value){
+                    selfPr = value;
+                  },
+                  textInputAction: TextInputAction.done,
+                  style: TextStyle(fontSize: 17),
+                  decoration: InputDecoration(
+                    hintText: '自己PR',
+                  ),                  
+                  textAlign: TextAlign.start,
+                  maxLines: 7,
+                ),
+              ),
+            ),
 
             //保存ボタン
             Align(
-              alignment: Alignment(0,0.80),
+              alignment: Alignment(0,0.91),
               child: ElevatedButton(
                 child: Text('保存'),
-                onPressed: (){},
-                style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28),),
-              ),
-            )
-          ],
+                  onPressed: () async{
+                    await FirebaseFirestore.instance
+                      .collection('users')
+                      .doc('user1')
+                      .set({'name':name,'selfPr':selfPr});
+                    var result  = await showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context){
+                        return AlertDialog(
+                          title: Text('保存完了'),
+                          content: Text('内容を変更しました。'),
+                        );
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28)),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
-}
