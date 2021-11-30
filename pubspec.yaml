@@ -45,6 +45,8 @@ dependencies:
   firebase_auth_web: ^3.2.0
   flutter_map: ^0.14.0
   latlong: ^0.6.1
+  shared_preferences: ^2.0.9
+  url_launcher: ^6.0.16
 
 dev_dependencies:
   flutter_test:
