@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // flutter_mapパッケージ追加
 import 'package:flutter_map/flutter_map.dart';
-import "package:latlong/latlong.dart";
 
 void main() {
   runApp(MapApp());
