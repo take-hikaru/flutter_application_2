@@ -124,7 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       DateTime createdAt;
                       for (var snapshot in test) {
-                        debugPrint(snapshot.data()['content']); //メッセージ内容
+                        //debugPrint(snapshot.data()['content']); //メッセージ内容
+                        //messages.add(snapshot.data()['content']);//チャットのところに出す
                         var timeStamp =
                             snapshot.data()['createdAt']; //送信時間をタイムスタンプ型で
                         createdAt = timeStamp
@@ -135,7 +136,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         createdAt.timeZoneOffset;
                         String date = outputFormat.format(createdAt); //
 
-                        debugPrint(date);
+                        //debugPrint(date);//サーバサイドの時間を表示
+                        //dates.add(date);//チャットのところに出す
 
                         // debugPrint()
                       }
