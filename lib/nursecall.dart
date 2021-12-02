@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum RadioValue { FIRST, SECOND }
+
+void main() => runApp(Nursecall());
 
 class Nursecall extends StatefulWidget {
   Nursecall({Key? key}) : super(key: key);
@@ -11,10 +14,54 @@ class Nursecall extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<Nursecall> {
+  int _counter = 0;
   RadioValue _gValue = RadioValue.FIRST;
+
+  void _incrementCounter() async {
+    setState(() {
+      _counter++;
+      _setPrefItems(); // Shared Preferenceに値を保存する。
+    });
+  }
+
+// Shared Preferenceに値を保存されているデータを読み込んで_counterにセットする。
+  _getPrefItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // 以下の「counter」がキー名。見つからなければ０を返す
+    setState(() {
+      _counter = prefs.getInt('counter') ?? 1;
+      print(_counter);
+    });
+  }
+
+// Shared Preferenceにデータを書き込む
+  _setPrefItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // 以下の「counter」がキー名。
+    prefs.setInt('counter', _counter);
+  }
+
+  // Shared Preferenceのデータを削除する
+  _removePrefItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      _counter = 0;
+      // 以下の「counter」がキー名。
+      prefs.remove('counter');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // 初期化時にShared Preferencesに保存している値を読み込む
+    _getPrefItems();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var _counter;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -41,12 +88,16 @@ class _HomePageWidgetState extends State<Nursecall> {
             ),
             Expanded(
               child: TextField(
-                decoration: InputDecoration(hintText: "電話番号を設定"),
-                keyboardType: TextInputType.number,
-              ),
+                  decoration: InputDecoration(hintText: "電話番号を設定"),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    _counter = value;
+                  }),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                _getPrefItems();
+              },
               child: Text(
                 "保存",
                 style: TextStyle(
