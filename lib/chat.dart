@@ -35,12 +35,12 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+List<String> messages = []; //入力されたメッセージを保存するリスト
+
+List<String> dates = []; //送信した時間を保存するリスト
+
 class _MyHomePageState extends State<MyHomePage> {
   final _textEditingController = TextEditingController();
-
-  List<String> messages = []; //入力されたメッセージを保存するリスト
-
-  List<String> dates = []; //送信した時間を保存するリスト
 
   String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -200,12 +200,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
     //アプリ起動時に一度だけ実行される
     aaa();
+    //再表示
   }
 }
 
-List<String> aaa() async {
-  List<String> mes;
-  List<String> datesLst;
+aaa() async {
+  List<String> mes = [];
+  List<String> datesLst = [];
 
   Intl.defaultLocale = 'ja_JP';
   initializeDateFormatting('ja_JP');
@@ -234,8 +235,14 @@ List<String> aaa() async {
     debugPrint(date); //サーバサイドの時間を表示
     datesLst.add(date); //チャットのところに出す
 
-    debugPrint(mes);
+    debugPrint(mes[0]); //debugPrintはString用の関数
+
   }
+  messages = mes;
+  dates = datesLst;
+  //再表示
+  _SentMessageWidget smw = _SentMessageWidget(date: '', message: ''); //インスタンス化
+  setState(() {});
 }
 
 // class _ReceivedMessageWidget extends StatelessWidget {
