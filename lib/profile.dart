@@ -41,6 +41,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
         .get().then((value){
           
          setState(() {
+           name = value['name'];
            selfPr=value['selfPr'];        
          });
          _sContlloer = TextEditingController(text: selfPr);
@@ -89,25 +90,16 @@ class _ProfeelWidgetState extends State<ProfilePage> {
               alignment: AlignmentDirectional(0.0, -0.24),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
-                child: TextField(              
-                  onChanged: (value){
-                    name = value;
-                  },
-                  style: TextStyle(fontSize: 34),
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    hintText: 'ユーザ名',
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  maxLength: 10,
+                child: Text(
+                  name,
+                  style: TextStyle(fontSize: 32),
                 ),
               ),
             ),
 
             //自己PR
             Align(
-              alignment: AlignmentDirectional(-0.17, 0.43),
+              alignment: AlignmentDirectional(-0.17, 0.40),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextField( 
@@ -128,7 +120,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             //保存ボタン
             Align(
-              alignment: Alignment(0,0.90),
+              alignment: Alignment(0,0.88),
               child: ElevatedButton(
                 child: Text('保存'),
                   onPressed: () async{
