@@ -242,7 +242,7 @@ aaa() async {
   dates = datesLst;
   //再表示
   _SentMessageWidget smw = _SentMessageWidget(date: '', message: ''); //インスタンス化
-  setState(() {});
+  //setState(() {});
 }
 
 // class _ReceivedMessageWidget extends StatelessWidget {
