@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(ChatPage());
@@ -33,12 +35,12 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+List<String> messages = []; //入力されたメッセージを保存するリスト
+
+List<String> dates = []; //送信した時間を保存するリスト
+
 class _MyHomePageState extends State<MyHomePage> {
   final _textEditingController = TextEditingController();
-
-  List<String> messages = []; //入力されたメッセージを保存するリスト
-
-  List<String> dates = []; //送信した時間を保存するリスト
 
   String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -110,6 +112,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     color: Colors.blue,
                     onPressed: () async {
+                      // var document = null;
+                      // document = await FirebaseFirestore.instance
+                      //     .collectionGroup('category1')
+                      //     .get();
+
+                      Intl.defaultLocale = 'ja_JP';
+                      initializeDateFormatting('ja_JP');
+
                       var document = null;
                       document = await FirebaseFirestore.instance
                           .collectionGroup('category1')
@@ -117,9 +127,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       var test = document.docs;
 
+                      // for (var snapshot in test) {
+                      //   debugPrint(snapshot.data()['content']);
+                      //   debugPrint(snapshot.data()['createdAt'].toString());
+                      // }
+
+                      DateTime createdAt;
                       for (var snapshot in test) {
-                        debugPrint(snapshot.data()['content']);
-                        debugPrint(snapshot.data()['createdAt'].toString());
+                        debugPrint(snapshot.data()['content']); //メッセージ内容
+                        messages.add(snapshot.data()['content']); //チャットのところに出す
+                        var timeStamp =
+                            snapshot.data()['createdAt']; //送信時間をタイムスタンプ型で
+                        createdAt = timeStamp
+                            .toDate()
+                            .toLocal(); //タイムスタンプ型の時間をDateTime型に
+                        DateFormat outputFormat =
+                            DateFormat('H:mm'); //フォーマットを指定
+                        createdAt.timeZoneOffset;
+                        String date = outputFormat.format(createdAt); //
+
+                        debugPrint(date); //サーバサイドの時間を表示
+                        dates.add(date); //チャットのところに出す
+
+                        // debugPrint()
                       }
 
                       //.debugPrint("あああああああああ" + document.toString());
@@ -163,6 +193,56 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+
+    //アプリ起動時に一度だけ実行される
+    aaa();
+    //再表示
+  }
+}
+
+aaa() async {
+  List<String> mes = [];
+  List<String> datesLst = [];
+
+  Intl.defaultLocale = 'ja_JP';
+  initializeDateFormatting('ja_JP');
+
+  var document = null;
+  document =
+      await FirebaseFirestore.instance.collectionGroup('category1').get();
+
+  var test = document.docs;
+
+  // for (var snapshot in test) {
+  //   debugPrint(snapshot.data()['content']);
+  //   debugPrint(snapshot.data()['createdAt'].toString());
+  // }
+
+  DateTime createdAt;
+  for (var snapshot in test) {
+    debugPrint(snapshot.data()['content']); //メッセージ内容
+    mes.add(snapshot.data()['content']); //チャットのところに出す
+    var timeStamp = snapshot.data()['createdAt']; //送信時間をタイムスタンプ型で
+    createdAt = timeStamp.toDate().toLocal(); //タイムスタンプ型の時間をDateTime型に
+    DateFormat outputFormat = DateFormat('H:mm'); //フォーマットを指定
+    createdAt.timeZoneOffset;
+    String date = outputFormat.format(createdAt); //
+
+    debugPrint(date); //サーバサイドの時間を表示
+    datesLst.add(date); //チャットのところに出す
+
+    debugPrint(mes[0]); //debugPrintはString用の関数
+
+  }
+  messages = mes;
+  dates = datesLst;
+  //再表示
+  _SentMessageWidget smw = _SentMessageWidget(date: '', message: ''); //インスタンス化
+  setState(() {});
 }
 
 // class _ReceivedMessageWidget extends StatelessWidget {

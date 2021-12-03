@@ -27,12 +27,17 @@ class _ProfeelWidgetState extends State<ProfilePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       appBar: AppBar(
-        title: const Text("プロフィール編集"),
+        title: const Text("プロフィール変更"),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: false,
@@ -42,6 +47,8 @@ class _ProfeelWidgetState extends State<ProfilePage> {
       body: SafeArea(
         child: Stack(
           children:[
+
+
             //プロフィール写真
             Align(
               alignment: AlignmentDirectional(0.0, -0.90),
@@ -57,17 +64,17 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                 ),
               ),
             ),
-
+            
             //ユーザー名
             Align(
-              alignment: AlignmentDirectional(0.0, -0.20),
+              alignment: AlignmentDirectional(0.0, -0.24),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
                 child: TextField(
                   onChanged: (value){
                     name = value;
                   },
-                  style: TextStyle(fontSize: 31),
+                  style: TextStyle(fontSize: 34),
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     hintText: 'ユーザー名',
@@ -81,7 +88,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             //自己PR
             Align(
-              alignment: AlignmentDirectional(-0.17, 0.44),
+              alignment: AlignmentDirectional(-0.17, 0.43),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextField( 
@@ -89,7 +96,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                     selfPr = value;
                   },
                   textInputAction: TextInputAction.done,
-                  style: TextStyle(fontSize: 17),
+                  style: TextStyle(fontSize: 19),
                   decoration: InputDecoration(
                     hintText: '自己PR',
                   ),                  
@@ -101,7 +108,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             //保存ボタン
             Align(
-              alignment: Alignment(0,0.91),
+              alignment: Alignment(0,0.90),
               child: ElevatedButton(
                 child: Text('保存'),
                   onPressed: () async{
@@ -115,7 +122,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                       builder: (BuildContext context){
                         return AlertDialog(
                           title: Text('保存完了'),
-                          content: Text('内容を変更しました。'),
+                          content: Text('変更しました。'),
                         );
                       },
                     );
