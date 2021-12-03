@@ -36,19 +36,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  _aaa() async {
-    var document = null;
-    document =
-        await FirebaseFirestore.instance.collectionGroup('category1').get();
-
-    var test = document.docs;
-
-    for (var snapshot in test) {
-      debugPrint(snapshot.data()['content']);
-      debugPrint(snapshot.data()['createdAt'].toString());
-    }
-  }
-
   final _textEditingController = TextEditingController();
 
   List<String> messages = []; //入力されたメッセージを保存するリスト
@@ -205,6 +192,49 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    //アプリ起動時に一度だけ実行される
+    aaa();
+  }
+}
+
+List<String> aaa() async {
+  List<String> mes;
+  List<String> datesLst;
+
+  Intl.defaultLocale = 'ja_JP';
+  initializeDateFormatting('ja_JP');
+
+  var document = null;
+  document =
+      await FirebaseFirestore.instance.collectionGroup('category1').get();
+
+  var test = document.docs;
+
+  // for (var snapshot in test) {
+  //   debugPrint(snapshot.data()['content']);
+  //   debugPrint(snapshot.data()['createdAt'].toString());
+  // }
+
+  DateTime createdAt;
+  for (var snapshot in test) {
+    debugPrint(snapshot.data()['content']); //メッセージ内容
+    mes.add(snapshot.data()['content']); //チャットのところに出す
+    var timeStamp = snapshot.data()['createdAt']; //送信時間をタイムスタンプ型で
+    createdAt = timeStamp.toDate().toLocal(); //タイムスタンプ型の時間をDateTime型に
+    DateFormat outputFormat = DateFormat('H:mm'); //フォーマットを指定
+    createdAt.timeZoneOffset;
+    String date = outputFormat.format(createdAt); //
+
+    debugPrint(date); //サーバサイドの時間を表示
+    datesLst.add(date); //チャットのところに出す
+
+    debugPrint(mes);
   }
 }
 
