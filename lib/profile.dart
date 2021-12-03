@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -6,10 +7,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 
 class ProfilePage extends StatefulWidget {
-
+ 
   ProfilePage({Key? key}) : super(key: key);
 
   @override
@@ -22,17 +24,35 @@ class _ProfeelWidgetState extends State<ProfilePage> {
   // String image = '';
   String name = '';
   String selfPr = '';
-  
+
+
+  TextEditingController _sContlloer = new TextEditingController();
+
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+     //取得
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc('user1')
+        .get().then((value){
+          
+         setState(() {
+           selfPr=value['selfPr'];        
+         });
+         _sContlloer = TextEditingController(text: selfPr);
+        });
+
   }
+
 
   @override
   Widget build(BuildContext context) {
+
+    //APPベース
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
@@ -47,7 +67,6 @@ class _ProfeelWidgetState extends State<ProfilePage> {
       body: SafeArea(
         child: Stack(
           children:[
-
 
             //プロフィール写真
             Align(
@@ -70,14 +89,14 @@ class _ProfeelWidgetState extends State<ProfilePage> {
               alignment: AlignmentDirectional(0.0, -0.24),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
-                child: TextField(
+                child: TextField(              
                   onChanged: (value){
                     name = value;
                   },
                   style: TextStyle(fontSize: 34),
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
-                    hintText: 'ユーザー名',
+                    hintText: 'ユーザ名',
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 1,
@@ -92,8 +111,9 @@ class _ProfeelWidgetState extends State<ProfilePage> {
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextField( 
+                  controller: _sContlloer,
                   onChanged: (value){
-                    selfPr = value;
+                      selfPr = value;          
                   },
                   textInputAction: TextInputAction.done,
                   style: TextStyle(fontSize: 19),
@@ -112,24 +132,27 @@ class _ProfeelWidgetState extends State<ProfilePage> {
               child: ElevatedButton(
                 child: Text('保存'),
                   onPressed: () async{
+
+                    //保存
                     await FirebaseFirestore.instance
                       .collection('users')
                       .doc('user1')
                       .set({'name':name,'selfPr':selfPr});
+
                     var result  = await showDialog(
                       context: context,
                       barrierDismissible: false,
                       builder: (BuildContext context){
                         return AlertDialog(
                           title: Text('保存完了'),
-                          content: Text('変更しました。'),
+                          content: Text('保存しました。'),
                         );
                       },
                     );
                   },
                   style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28)),
                 ),
-              )
+              ),
             ],
           ),
         ),
