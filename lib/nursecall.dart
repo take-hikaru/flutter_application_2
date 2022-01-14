@@ -14,54 +14,19 @@ class Nursecall extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<Nursecall> {
-  int _counter = 0;
+  String _counter = "";
+
   RadioValue _gValue = RadioValue.FIRST;
-
-  void _incrementCounter() async {
-    setState(() {
-      _counter++;
-      _setPrefItems(); // Shared Preferenceに値を保存する。
-    });
-  }
-
-// Shared Preferenceに値を保存されているデータを読み込んで_counterにセットする。
-  _getPrefItems() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // 以下の「counter」がキー名。見つからなければ０を返す
-    setState(() {
-      _counter = prefs.getInt('counter') ?? 1;
-      print(_counter);
-    });
-  }
 
 // Shared Preferenceにデータを書き込む
   _setPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // 以下の「counter」がキー名。
-    prefs.setInt('counter', _counter);
-  }
-
-  // Shared Preferenceのデータを削除する
-  _removePrefItems() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    setState(() {
-      _counter = 0;
-      // 以下の「counter」がキー名。
-      prefs.remove('counter');
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // 初期化時にShared Preferencesに保存している値を読み込む
-    _getPrefItems();
+    prefs.setString('counter', _counter);
   }
 
   @override
   Widget build(BuildContext context) {
-    var _counter;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -96,7 +61,96 @@ class _HomePageWidgetState extends State<Nursecall> {
             ),
             ElevatedButton(
               onPressed: () async {
-                _getPrefItems();
+                if (_gValue == RadioValue.FIRST) {
+                  final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  await prefs.remove('counter');
+
+// Shared Preferenceにデータを書き込む
+                  _setPrefItems() async {
+                    _counter = "119";
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    // 以下の「counter」がキー名。
+                    prefs.setString('counter', _counter);
+                  }
+
+                  _setPrefItems();
+
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return AlertDialog(
+                        content: Text(_counter + "を登録しました。"),
+                        actions: <Widget>[
+                          // ボタン領域
+                          FlatButton(
+                            child: Text("Cancel"),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                          FlatButton(
+                            child: Text("OK"),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else {
+// Shared Preferenceにデータを書き込む
+                  _setPrefItems() async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    // 以下の「counter」がキー名。
+                    prefs.setString('counter', _counter);
+                  }
+
+                  if (RegExp(r"(0[789]0+\d{8})").hasMatch(_counter)) {
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.remove('counter');
+                    _setPrefItems();
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          content: Text(_counter + "を登録しました。"),
+                          actions: <Widget>[
+                            // ボタン領域
+                            FlatButton(
+                              child: Text("Cancel"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            FlatButton(
+                              child: Text("OK"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          content: Text("ちゃんと入力して下さい"),
+                          actions: <Widget>[
+                            // ボタン領域
+                            FlatButton(
+                              child: Text("Cancel"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            FlatButton(
+                              child: Text("OK"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                }
               },
               child: Text(
                 "保存",
