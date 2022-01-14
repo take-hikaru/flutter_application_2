@@ -22,10 +22,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfeelWidgetState extends State<ProfilePage> {
 
-  //変数
-  File? image;
-  final _picker = ImagePicker();
-
+  //ユーザ情報の変数
   String uid = FirebaseAuth.instance.currentUser!.uid;
   String name ='';
   String selfPr = '';
