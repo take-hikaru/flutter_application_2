@@ -120,7 +120,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                   textInputAction: TextInputAction.done,
                   style: TextStyle(fontSize: 19),
                   decoration: InputDecoration(
-                    hintText: '自己PRを入力してください',
+                    hintText: '自己PR',
                   ),                  
                   textAlign: TextAlign.start,
                   maxLines: 7,
@@ -136,11 +136,25 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                   onPressed: () async{
 
                     //保存
-                    if(name == ''){
+                    if(name == '' && selfPr == ''){
                       showDialog(context: context, builder: (_){
                         return AlertDialog(
                           title: Text('保存失敗'),
-                          content: Text('ユーザー名を入力してください'),
+                          content: Text('ユーザー名と自己PRを\n入力してください。'),
+                           actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed:() => Navigator.of(context).pop(1),
+                              ),
+                            ],
+                          );
+                        }
+                      );
+                    }else if(name == ''){
+                      showDialog(context: context, builder: (_){
+                        return AlertDialog(
+                          title: Text('保存失敗'),
+                          content: Text('ユーザー名を入力してください。'),
                            actions: <Widget>[
                             TextButton(
                               child: Text('OK'),
@@ -154,7 +168,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                       showDialog(context: context, builder: (_){
                         return AlertDialog(
                           title: Text('保存失敗'),
-                          content: Text('自己PRを入力してください'),
+                          content: Text('自己PRを入力してください。'),
                            actions: <Widget>[
                             TextButton(
                               child: Text('OK'),
