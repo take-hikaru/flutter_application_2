@@ -31,7 +31,7 @@ class _HomePageWidgetState extends State<Nursecall> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         // タイトルテキスト
-        title: Text('AppBar'),
+        title: Text('ナースコール設定'),
       ),
       body: SafeArea(
         child: Column(

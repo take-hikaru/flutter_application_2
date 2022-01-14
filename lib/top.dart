@@ -60,7 +60,7 @@ class _TopWidgetState extends State<TopWidget> {
               ),
             ),
             ListTile(
-              title: Text("プロフィール変更"),
+              title: Text("プロフィール設定"),
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 Navigator.push(

@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_2/main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:image_picker/image_picker.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -59,7 +58,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       appBar: AppBar(
-        title: const Text("プロフィール変更"),
+        title: const Text("プロフィール設定"),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: false,
