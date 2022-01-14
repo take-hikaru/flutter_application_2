@@ -75,7 +75,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
 
             // //プロフィール写真
             Align(
-              alignment: AlignmentDirectional(0.0, -0.90),
+              alignment: AlignmentDirectional(0.0, -0.92),
               child: Container(
                 width: 200,
                 height: 200,
@@ -89,21 +89,9 @@ class _ProfeelWidgetState extends State<ProfilePage> {
               ),
             ),
 
-            // // //ユーザー名
-            // Align(
-            //   alignment: AlignmentDirectional(0.0, -0.22),
-            //   child: Padding(
-            //     padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
-            //     child: Text(
-            //       name,
-            //       style: TextStyle(fontSize: 38),
-            //     ),
-            //   ),
-            // ),
-
             //ユーザー名
             Align(
-              alignment: AlignmentDirectional(0.0, -0.22),
+              alignment: AlignmentDirectional(0.0, -0.25),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
                 child: TextField( 
