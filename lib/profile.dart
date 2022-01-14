@@ -2,12 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_2/main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -21,13 +22,16 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfeelWidgetState extends State<ProfilePage> {
 
-  // String image = '';
-  String name = '';
+  //変数
+  File? image;
+  final _picker = ImagePicker();
+
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+  String name ='';
   String selfPr = '';
 
-
-  TextEditingController _sContlloer = new TextEditingController();
-
+  TextEditingController _sContlloername = new TextEditingController();
+  TextEditingController _sContlloerselfPr = new TextEditingController();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,17 +41,17 @@ class _ProfeelWidgetState extends State<ProfilePage> {
      //取得
     FirebaseFirestore.instance
         .collection('users')
-        .doc('user1')
+        .doc(uid)
         .get().then((value){
           
          setState(() {
            name = value['name'];
-           selfPr=value['selfPr'];        
+           selfPr = value['selfPr'];        
          });
-         _sContlloer = TextEditingController(text: selfPr);
-        });
-
-  }
+          _sContlloername = TextEditingController(text: name);
+          _sContlloerselfPr = TextEditingController(text: selfPr);
+    });
+}
 
 
   @override
@@ -69,7 +73,7 @@ class _ProfeelWidgetState extends State<ProfilePage> {
         child: Stack(
           children:[
 
-            //プロフィール写真
+            // //プロフィール写真
             Align(
               alignment: AlignmentDirectional(0.0, -0.90),
               child: Container(
@@ -84,15 +88,37 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                 ),
               ),
             ),
-            
+
+            // // //ユーザー名
+            // Align(
+            //   alignment: AlignmentDirectional(0.0, -0.22),
+            //   child: Padding(
+            //     padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
+            //     child: Text(
+            //       name,
+            //       style: TextStyle(fontSize: 38),
+            //     ),
+            //   ),
+            // ),
+
             //ユーザー名
             Align(
-              alignment: AlignmentDirectional(0.0, -0.24),
+              alignment: AlignmentDirectional(0.0, -0.22),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
-                child: Text(
-                  name,
-                  style: TextStyle(fontSize: 32),
+                child: TextField( 
+                  controller: _sContlloername,
+                  onChanged: (value){
+                      name = value;          
+                  },
+                  textInputAction: TextInputAction.done,
+                  style: TextStyle(fontSize: 34),
+                  decoration: InputDecoration(
+                    hintText: 'ユーザー名',
+                    border: InputBorder.none,
+                  ),                  
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
                 ),
               ),
             ),
@@ -103,14 +129,14 @@ class _ProfeelWidgetState extends State<ProfilePage> {
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                 child: TextField( 
-                  controller: _sContlloer,
+                  controller: _sContlloerselfPr,
                   onChanged: (value){
                       selfPr = value;          
                   },
                   textInputAction: TextInputAction.done,
                   style: TextStyle(fontSize: 19),
                   decoration: InputDecoration(
-                    hintText: '自己PR',
+                    hintText: '自己PRを入力してください',
                   ),                  
                   textAlign: TextAlign.start,
                   maxLines: 7,
@@ -126,9 +152,38 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                   onPressed: () async{
 
                     //保存
+                    if(name == ''){
+                      showDialog(context: context, builder: (_){
+                        return AlertDialog(
+                          title: Text('保存失敗'),
+                          content: Text('ユーザー名を入力してください'),
+                           actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed:() => Navigator.of(context).pop(1),
+                              ),
+                            ],
+                          );
+                        }
+                      );
+                    }else if(selfPr == ''){
+                      showDialog(context: context, builder: (_){
+                        return AlertDialog(
+                          title: Text('保存失敗'),
+                          content: Text('自己PRを入力してください'),
+                           actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed:() => Navigator.of(context).pop(1),
+                              ),
+                            ],
+                          );
+                        }
+                      );
+                    }else if(name != '' && selfPr != ''){
                     await FirebaseFirestore.instance
                       .collection('users')
-                      .doc('user1')
+                      .doc(uid)
                       .set({'name':name,'selfPr':selfPr});
 
                     var result  = await showDialog(
@@ -136,11 +191,18 @@ class _ProfeelWidgetState extends State<ProfilePage> {
                       barrierDismissible: false,
                       builder: (BuildContext context){
                         return AlertDialog(
-                          title: Text('保存完了'),
-                          content: Text('保存しました。'),
-                        );
-                      },
-                    );
+                          title: Text('保存成功'),
+                          content: Text('内容を保存しました。'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed:() => Navigator.of(context).pop(1),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(minimumSize: Size(260,70), textStyle: TextStyle(fontSize: 28)),
                 ),
