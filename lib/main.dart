@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ChatPage(),
+                      builder: (context) => ChatPage('category1'),
                     ));
                 // 押したら反応するコードを書く
                 // 画面遷移のコード

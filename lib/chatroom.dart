@@ -33,7 +33,7 @@ class ChatRoomPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChatPage(),
+                                builder: (context) => ChatPage('不眠症'),
                               ));
                         },
                       ),
@@ -43,7 +43,7 @@ class ChatRoomPage extends StatelessWidget {
                       width: 200,
                       height: 50,
                       child: ElevatedButton(
-                        child: const Text('不眠症コロナ'),
+                        child: const Text('喘息'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
                           onPrimary: Colors.white,
@@ -51,7 +51,13 @@ class ChatRoomPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChatPage('喘息'),
+                              ));
+                        },
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -59,7 +65,7 @@ class ChatRoomPage extends StatelessWidget {
                       width: 200,
                       height: 50,
                       child: ElevatedButton(
-                        child: const Text('不眠症'),
+                        child: const Text('がん'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
                           onPrimary: Colors.white,
@@ -67,7 +73,13 @@ class ChatRoomPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChatPage('がん'),
+                              ));
+                        },
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -75,7 +87,7 @@ class ChatRoomPage extends StatelessWidget {
                       width: 200,
                       height: 50,
                       child: ElevatedButton(
-                        child: const Text('不眠症'),
+                        child: const Text('てんかん'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
                           onPrimary: Colors.white,
@@ -83,7 +95,13 @@ class ChatRoomPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChatPage('てんかん'),
+                              ));
+                        },
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -91,7 +109,7 @@ class ChatRoomPage extends StatelessWidget {
                       width: 200,
                       height: 50,
                       child: ElevatedButton(
-                        child: const Text('不眠症'),
+                        child: const Text('コロナ'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.blue,
                           onPrimary: Colors.white,
@@ -99,71 +117,13 @@ class ChatRoomPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    SizedBox(
-                      width: 200,
-                      height: 50,
-                      child: ElevatedButton(
-                        child: const Text('不眠症'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    SizedBox(
-                      width: 200,
-                      height: 50,
-                      child: ElevatedButton(
-                        child: const Text('不眠症'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    SizedBox(
-                      width: 200,
-                      height: 50,
-                      child: ElevatedButton(
-                        child: const Text('不眠症'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    SizedBox(
-                      width: 200,
-                      height: 50,
-                      child: ElevatedButton(
-                        child: const Text('不眠症'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChatPage('コロナ'),
+                              ));
+                        },
                       ),
                     ),
                   ])))),
