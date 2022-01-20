@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/chat2.dart';
+import 'package:flutter_application_2/chat3.dart';
+import 'package:flutter_application_2/chat4.dart';
+import 'package:flutter_application_2/chat5.dart';
 
 import 'chat.dart';
 
@@ -55,7 +59,7 @@ class ChatRoomPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChatPage('喘息'),
+                                builder: (context) => ChatPage2('喘息'),
                               ));
                         },
                       ),
@@ -77,7 +81,7 @@ class ChatRoomPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChatPage('がん'),
+                                builder: (context) => ChatPage3('がん'),
                               ));
                         },
                       ),
@@ -99,7 +103,7 @@ class ChatRoomPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChatPage('てんかん'),
+                                builder: (context) => ChatPage4('てんかん'),
                               ));
                         },
                       ),
@@ -121,7 +125,7 @@ class ChatRoomPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChatPage('コロナ'),
+                                builder: (context) => ChatPage5('コロナ'),
                               ));
                         },
                       ),
