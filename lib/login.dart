@@ -29,6 +29,17 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            Align(
+              alignment: AlignmentDirectional(0.5, -0.63),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
+                child: Image.asset(
+                  'img/sotukenLogo.png',
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             ButtonTheme(
               minWidth: 350.0,
               // height: 100.0,
